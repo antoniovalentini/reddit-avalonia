@@ -1,0 +1,176 @@
+﻿using System.Text.Json.Serialization;
+
+namespace Reddit.Client.Dtos;
+
+public record RedditUser(
+    [property: JsonPropertyName("is_employee")] bool IsEmployee,
+    [property: JsonPropertyName("seen_layout_switch")] bool SeenLayoutSwitch,
+    [property: JsonPropertyName("has_visited_new_profile")] bool HasVisitedNewProfile,
+    [property: JsonPropertyName("pref_no_profanity")] bool PrefNoProfanity,
+    [property: JsonPropertyName("has_external_account")] bool HasExternalAccount,
+    [property: JsonPropertyName("pref_geopopular")] string PrefGeopopular,
+    [property: JsonPropertyName("seen_redesign_modal")] bool SeenRedesignModal,
+    [property: JsonPropertyName("pref_show_trending")] bool PrefShowTrending,
+    [property: JsonPropertyName("subreddit")] UserSubreddit UserSubreddit,
+    [property: JsonPropertyName("pref_show_presence")] bool PrefShowPresence,
+    [property: JsonPropertyName("snoovatar_img")] string SnoovatarImg,
+    [property: JsonPropertyName("snoovatar_size")] IReadOnlyList<int> SnoovatarSize,
+    [property: JsonPropertyName("gold_expiration")] object GoldExpiration,
+    [property: JsonPropertyName("has_gold_subscription")] bool HasGoldSubscription,
+    [property: JsonPropertyName("is_sponsor")] bool IsSponsor,
+    [property: JsonPropertyName("num_friends")] int NumFriends,
+    [property: JsonPropertyName("features")] Features Features,
+    [property: JsonPropertyName("can_edit_name")] bool CanEditName,
+    [property: JsonPropertyName("verified")] bool Verified,
+    [property: JsonPropertyName("new_modmail_exists")] object NewModmailExists,
+    [property: JsonPropertyName("pref_autoplay")] bool PrefAutoplay,
+    [property: JsonPropertyName("coins")] int Coins,
+    [property: JsonPropertyName("has_paypal_subscription")] bool HasPaypalSubscription,
+    [property: JsonPropertyName("has_subscribed_to_premium")] bool HasSubscribedToPremium,
+    [property: JsonPropertyName("id")] string Id,
+    [property: JsonPropertyName("has_stripe_subscription")] bool HasStripeSubscription,
+    [property: JsonPropertyName("oauth_client_id")] string OauthClientId,
+    [property: JsonPropertyName("can_create_subreddit")] bool CanCreateSubreddit,
+    [property: JsonPropertyName("over_18")] bool Over18,
+    [property: JsonPropertyName("is_gold")] bool IsGold,
+    [property: JsonPropertyName("is_mod")] bool IsMod,
+    [property: JsonPropertyName("awarder_karma")] int AwarderKarma,
+    [property: JsonPropertyName("suspension_expiration_utc")] object SuspensionExpirationUtc,
+    [property: JsonPropertyName("has_verified_email")] bool HasVerifiedEmail,
+    [property: JsonPropertyName("is_suspended")] bool IsSuspended,
+    [property: JsonPropertyName("pref_video_autoplay")] bool PrefVideoAutoplay,
+    [property: JsonPropertyName("has_android_subscription")] bool HasAndroidSubscription,
+    [property: JsonPropertyName("in_redesign_beta")] bool InRedesignBeta,
+    [property: JsonPropertyName("icon_img")] string IconImg,
+    [property: JsonPropertyName("has_mod_mail")] bool HasModMail,
+    [property: JsonPropertyName("pref_nightmode")] bool PrefNightmode,
+    [property: JsonPropertyName("awardee_karma")] int AwardeeKarma,
+    [property: JsonPropertyName("hide_from_robots")] bool HideFromRobots,
+    [property: JsonPropertyName("password_set")] bool PasswordSet,
+    [property: JsonPropertyName("link_karma")] int LinkKarma,
+    [property: JsonPropertyName("force_password_reset")] bool ForcePasswordReset,
+    [property: JsonPropertyName("total_karma")] int TotalKarma,
+    [property: JsonPropertyName("seen_give_award_tooltip")] bool SeenGiveAwardTooltip,
+    [property: JsonPropertyName("inbox_count")] int InboxCount,
+    [property: JsonPropertyName("seen_premium_adblock_modal")] bool SeenPremiumAdblockModal,
+    [property: JsonPropertyName("pref_top_karma_subreddits")] bool PrefTopKarmaSubreddits,
+    [property: JsonPropertyName("has_mail")] bool HasMail,
+    [property: JsonPropertyName("pref_show_snoovatar")] bool PrefShowSnoovatar,
+    [property: JsonPropertyName("name")] string Name,
+    [property: JsonPropertyName("pref_clickgadget")] int PrefClickgadget,
+    [property: JsonPropertyName("created")] double Created,
+    [property: JsonPropertyName("gold_creddits")] int GoldCreddits,
+    [property: JsonPropertyName("created_utc")] double CreatedUtc,
+    [property: JsonPropertyName("has_ios_subscription")] bool HasIosSubscription,
+    [property: JsonPropertyName("pref_show_twitter")] bool PrefShowTwitter,
+    [property: JsonPropertyName("in_beta")] bool InBeta,
+    [property: JsonPropertyName("comment_karma")] int CommentKarma,
+    [property: JsonPropertyName("accept_followers")] bool AcceptFollowers,
+    [property: JsonPropertyName("has_subscribed")] bool HasSubscribed,
+    [property: JsonPropertyName("linked_identities")] IReadOnlyList<object> LinkedIdentities,
+    [property: JsonPropertyName("seen_subreddit_chat_ftux")] bool SeenSubredditChatFtux
+);
+
+public record Features(
+    [property: JsonPropertyName("modmail_harassment_filter")] bool ModmailHarassmentFilter,
+    [property: JsonPropertyName("mod_service_mute_writes")] bool ModServiceMuteWrites,
+    [property: JsonPropertyName("promoted_trend_blanks")] bool PromotedTrendBlanks,
+    [property: JsonPropertyName("show_amp_link")] bool ShowAmpLink,
+    [property: JsonPropertyName("is_email_permission_required")] bool IsEmailPermissionRequired,
+    [property: JsonPropertyName("mod_awards")] bool ModAwards,
+    [property: JsonPropertyName("mweb_xpromo_revamp_v3")] MwebXpromoRevampV3 MwebXpromoRevampV3,
+    [property: JsonPropertyName("mweb_xpromo_revamp_v2")] MwebXpromoRevampV2 MwebXpromoRevampV2,
+    [property: JsonPropertyName("awards_on_streams")] bool AwardsOnStreams,
+    [property: JsonPropertyName("mweb_xpromo_modal_listing_click_daily_dismissible_ios")] bool MwebXpromoModalListingClickDailyDismissibleIos,
+    [property: JsonPropertyName("chat_subreddit")] bool ChatSubreddit,
+    [property: JsonPropertyName("cookie_consent_banner")] bool CookieConsentBanner,
+    [property: JsonPropertyName("modlog_copyright_removal")] bool ModlogCopyrightRemoval,
+    [property: JsonPropertyName("do_not_track")] bool DoNotTrack,
+    [property: JsonPropertyName("images_in_comments")] bool ImagesInComments,
+    [property: JsonPropertyName("mod_service_mute_reads")] bool ModServiceMuteReads,
+    [property: JsonPropertyName("chat_user_settings")] bool ChatUserSettings,
+    [property: JsonPropertyName("use_pref_account_deployment")] bool UsePrefAccountDeployment,
+    [property: JsonPropertyName("mweb_xpromo_interstitial_comments_ios")] bool MwebXpromoInterstitialCommentsIos,
+    [property: JsonPropertyName("mweb_sharing_clipboard")] MwebSharingClipboard MwebSharingClipboard,
+    [property: JsonPropertyName("premium_subscriptions_table")] bool PremiumSubscriptionsTable,
+    [property: JsonPropertyName("mweb_xpromo_interstitial_comments_android")] bool MwebXpromoInterstitialCommentsAndroid,
+    [property: JsonPropertyName("crowd_control_for_post")] bool CrowdControlForPost,
+    [property: JsonPropertyName("mweb_nsfw_xpromo")] MwebNsfwXpromo MwebNsfwXpromo,
+    [property: JsonPropertyName("mweb_xpromo_modal_listing_click_daily_dismissible_android")] bool MwebXpromoModalListingClickDailyDismissibleAndroid,
+    [property: JsonPropertyName("chat_group_rollout")] bool ChatGroupRollout,
+    [property: JsonPropertyName("resized_styles_images")] bool ResizedStylesImages,
+    [property: JsonPropertyName("noreferrer_to_noopener")] bool NoreferrerToNoopener,
+    [property: JsonPropertyName("expensive_coins_package")] bool ExpensiveCoinsPackage
+);
+
+public record MwebNsfwXpromo(
+    [property: JsonPropertyName("owner")] string Owner,
+    [property: JsonPropertyName("variant")] string Variant,
+    [property: JsonPropertyName("experiment_id")] int ExperimentId
+);
+
+public record MwebSharingClipboard(
+    [property: JsonPropertyName("owner")] string Owner,
+    [property: JsonPropertyName("variant")] string Variant,
+    [property: JsonPropertyName("experiment_id")] int ExperimentId
+);
+
+public record MwebXpromoRevampV2(
+    [property: JsonPropertyName("owner")] string Owner,
+    [property: JsonPropertyName("variant")] string Variant,
+    [property: JsonPropertyName("experiment_id")] int ExperimentId
+);
+
+public record MwebXpromoRevampV3(
+    [property: JsonPropertyName("owner")] string Owner,
+    [property: JsonPropertyName("variant")] string Variant,
+    [property: JsonPropertyName("experiment_id")] int ExperimentId
+);
+
+public record UserSubreddit(
+    [property: JsonPropertyName("default_set")] bool DefaultSet,
+    [property: JsonPropertyName("user_is_contributor")] bool UserIsContributor,
+    [property: JsonPropertyName("banner_img")] string BannerImg,
+    [property: JsonPropertyName("restrict_posting")] bool RestrictPosting,
+    [property: JsonPropertyName("user_is_banned")] bool UserIsBanned,
+    [property: JsonPropertyName("free_form_reports")] bool FreeFormReports,
+    [property: JsonPropertyName("community_icon")] object CommunityIcon,
+    [property: JsonPropertyName("show_media")] bool ShowMedia,
+    [property: JsonPropertyName("icon_color")] string IconColor,
+    [property: JsonPropertyName("user_is_muted")] object UserIsMuted,
+    [property: JsonPropertyName("display_name")] string DisplayName,
+    [property: JsonPropertyName("header_img")] object HeaderImg,
+    [property: JsonPropertyName("title")] string Title,
+    [property: JsonPropertyName("coins")] int Coins,
+    [property: JsonPropertyName("previous_names")] IReadOnlyList<object> PreviousNames,
+    [property: JsonPropertyName("over_18")] bool Over18,
+    [property: JsonPropertyName("icon_size")] IReadOnlyList<int> IconSize,
+    [property: JsonPropertyName("primary_color")] string PrimaryColor,
+    [property: JsonPropertyName("icon_img")] string IconImg,
+    [property: JsonPropertyName("description")] string Description,
+    [property: JsonPropertyName("allowed_media_in_comments")] IReadOnlyList<object> AllowedMediaInComments,
+    [property: JsonPropertyName("submit_link_label")] string SubmitLinkLabel,
+    [property: JsonPropertyName("header_size")] object HeaderSize,
+    [property: JsonPropertyName("restrict_commenting")] bool RestrictCommenting,
+    [property: JsonPropertyName("subscribers")] int Subscribers,
+    [property: JsonPropertyName("submit_text_label")] string SubmitTextLabel,
+    [property: JsonPropertyName("is_default_icon")] bool IsDefaultIcon,
+    [property: JsonPropertyName("link_flair_position")] string LinkFlairPosition,
+    [property: JsonPropertyName("display_name_prefixed")] string DisplayNamePrefixed,
+    [property: JsonPropertyName("key_color")] string KeyColor,
+    [property: JsonPropertyName("name")] string Name,
+    [property: JsonPropertyName("is_default_banner")] bool IsDefaultBanner,
+    [property: JsonPropertyName("url")] string Url,
+    [property: JsonPropertyName("quarantine")] bool Quarantine,
+    [property: JsonPropertyName("banner_size")] object BannerSize,
+    [property: JsonPropertyName("user_is_moderator")] bool UserIsModerator,
+    [property: JsonPropertyName("accept_followers")] bool AcceptFollowers,
+    [property: JsonPropertyName("public_description")] string PublicDescription,
+    [property: JsonPropertyName("link_flair_enabled")] bool LinkFlairEnabled,
+    [property: JsonPropertyName("disable_contributor_requests")] bool DisableContributorRequests,
+    [property: JsonPropertyName("subreddit_type")] string SubredditType,
+    [property: JsonPropertyName("user_is_subscriber")] bool UserIsSubscriber
+)
+{
+    public int ActiveUserCount { get; set; }
+}
