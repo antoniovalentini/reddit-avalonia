@@ -1,0 +1,30 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reddilonia", "Reddilonia\Reddilonia\Reddilonia.csproj", "{950EA312-427D-44F4-9EFA-1A56E42D2CE1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reddilonia.Android", "Reddilonia\Reddilonia.Android\Reddilonia.Android.csproj", "{5FF85AF0-F50C-4460-988E-ECB3A3ED4133}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reddilonia.Desktop", "Reddilonia\Reddilonia.Desktop\Reddilonia.Desktop.csproj", "{5FAEC3E4-1533-48BF-82FB-FAE7A96B144B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{950EA312-427D-44F4-9EFA-1A56E42D2CE1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{950EA312-427D-44F4-9EFA-1A56E42D2CE1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{950EA312-427D-44F4-9EFA-1A56E42D2CE1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{950EA312-427D-44F4-9EFA-1A56E42D2CE1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5FF85AF0-F50C-4460-988E-ECB3A3ED4133}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5FF85AF0-F50C-4460-988E-ECB3A3ED4133}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5FF85AF0-F50C-4460-988E-ECB3A3ED4133}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{5FF85AF0-F50C-4460-988E-ECB3A3ED4133}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5FF85AF0-F50C-4460-988E-ECB3A3ED4133}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5FF85AF0-F50C-4460-988E-ECB3A3ED4133}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{5FAEC3E4-1533-48BF-82FB-FAE7A96B144B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5FAEC3E4-1533-48BF-82FB-FAE7A96B144B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5FAEC3E4-1533-48BF-82FB-FAE7A96B144B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5FAEC3E4-1533-48BF-82FB-FAE7A96B144B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
