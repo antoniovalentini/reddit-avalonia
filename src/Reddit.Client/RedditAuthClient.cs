@@ -39,20 +39,6 @@ public class RedditAuthClient : IRedditAuthClient
         return await Post<OAuthToken>("api/v1/access_token", requestContent);
     }
 
-    public async Task<OAuthToken> GetScriptAppToken()
-    {
-        var requestContent = new FormUrlEncodedContent(new List<KeyValuePair<string, string>>
-        {
-            new("grant_type", "password"),
-            new("username", _settings.WebAuthParameters.Username),
-            new("password", _settings.WebAuthParameters.Password),
-        });
-
-        var oAuthToken = await Post<OAuthToken>("api/v1/access_token", requestContent);
-        CurrentOAuthToken = oAuthToken;
-        return oAuthToken;
-    }
-
     public async Task<OAuthToken> RefreshToken(string refreshToken)
     {
         var requestContent = new FormUrlEncodedContent(new List<KeyValuePair<string, string>>
@@ -77,7 +63,7 @@ public class RedditAuthClient : IRedditAuthClient
         {
             _logger.LogError("Failed to send request to {Url}: {ResponseContent}", url, responseContent);
             throw new Exception($"Failed to send request to {url}: {responseContent}");
-        };
+        }
         var result = JsonSerializer.Deserialize<T>(responseContent);
         if (result is null) throw new Exception("Failed to deserialize response: " + responseContent);
         return result;

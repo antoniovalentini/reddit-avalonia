@@ -1,5 +1,7 @@
 ﻿using System;
 using Avalonia;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Reddilonia.Desktop;
 
@@ -14,8 +16,20 @@ sealed class Program
 
     // Avalonia configuration, don't remove; also used by visual designer.
     public static AppBuilder BuildAvaloniaApp()
-        => AppBuilder.Configure<App>()
+        => AppBuilder.Configure<DesktopApp>()
             .UsePlatformDetect()
             .WithInterFont()
             .LogToTrace();
+}
+
+public class DesktopApp : App
+{
+    protected override void RegisterPlatformServices(IServiceCollection services) { }
+
+    protected override void PlatformConfiguration(ConfigurationBuilder builder)
+    {
+        builder
+            .AddJsonFile("appsettings.json")
+            .AddJsonFile("appsettings.test.json", true);
+    }
 }

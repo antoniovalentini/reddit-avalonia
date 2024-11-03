@@ -21,12 +21,6 @@ public interface IRedditAuthClient
     Task<OAuthToken> ExchangeCode(string code);
 
     /// <summary>
-    /// Obtains an OAuth token for a script application, intended for use with confidential client applications.
-    /// </summary>
-    /// <returns>A task that represents the asynchronous operation, containing the OAuth token.</returns>
-    Task<OAuthToken> GetScriptAppToken();
-
-    /// <summary>
     /// Refreshes an expired OAuth token using a refresh token.
     /// </summary>
     /// <param name="refreshToken">The refresh token associated with the expired OAuth token.</param>
