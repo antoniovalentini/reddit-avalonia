@@ -7,6 +7,7 @@ using CommunityToolkit.Mvvm.Messaging;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Reddilonia.BusinessLogic;
 using Reddilonia.ViewModels;
 using Reddilonia.Views;
 using Reddit.Client;
@@ -44,6 +45,8 @@ public abstract class App : Application
         var services = new ServiceCollection()
             .AddLogging(builder => builder.AddConsole())
             .Configure<RedditClientSettings>(config)
+            .AddSingleton<IAuthManager, AuthManager>()
+            .AddSingleton<IAuthTokenStorage, AuthTokenStorage>()
             .AddSingleton<IMessenger>(WeakReferenceMessenger.Default)
             .AddSingleton<BitmapAssetValueConverter>()
             .AddSingleton<MainViewModel>();

@@ -1,0 +1,65 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:Reddilonia.ViewModels"
+             xmlns:vmd="clr-namespace:Reddilonia.ViewModels.Design"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="Reddilonia.Views.FeedsView"
+             x:DataType="vm:FeedsViewModel">
+<Design.DataContext>
+    <vmd:FeedsViewModelDesign />
+  </Design.DataContext>
+
+  <!-- Container for header, separator and SplitView -->
+  <Grid RowDefinitions="Auto, Auto, *" Background="#2B2B2B">
+
+    <!-- Header with hamburger and auth buttons -->
+    <StackPanel Grid.Row="0" Orientation="Horizontal" Spacing="10">
+      <Button HorizontalAlignment="Left"
+              Height="32"
+              Margin="7 10 0 10"
+              Command="{Binding TriggerPaneCommand}">
+        <PathIcon Height="11" Data="{StaticResource LineHorizontal3Regular}" />
+      </Button>
+      <Button HorizontalAlignment="Left"
+              Height="32"
+              Margin="0 10 0 10"
+              Command="{Binding BackHomeCommand}">
+        <PathIcon Height="15" Data="{StaticResource HomeRegular}" />
+      </Button>
+      <TextBlock Text="{Binding UserName}"
+                 HorizontalAlignment="Center"
+                 VerticalAlignment="Center" />
+      <Button Content="AUTH" Command="{Binding ShowAuthCommand}" />
+    </StackPanel>
+
+    <Separator Grid.Row="1" Margin="10 0" />
+
+    <!-- SplitView with subreddits on the left pane and a content page -->
+    <SplitView Grid.Row="2"
+               IsPaneOpen="{Binding IsPaneOpen}"
+               DisplayMode="Overlay"
+               OpenPaneLength="200"
+               Background="#1e1e1e"
+               PaneBackground="#1e1e1e">
+      <SplitView.Pane>
+        <ListBox ItemsSource="{Binding SubredditIds}" SelectedItem="{Binding SelectedSubredditId}" Margin="0 10" />
+      </SplitView.Pane>
+      <SplitView.Content>
+        <TransitioningContentControl Content="{Binding SplitViewContent}" />
+      </SplitView.Content>
+    </SplitView>
+
+    <!-- Loading screen -->
+    <Panel Grid.Row="2" Background="#2B2B2B" IsVisible="{Binding Loading}">
+      <TextBlock Text="Loading..." HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24" />
+    </Panel>
+
+    <!-- Auth warning -->
+    <Panel Grid.Row="2" Background="#2B2B2B" IsVisible="{Binding NeedsAuthentication}">
+      <TextBlock Text="Authentication required!" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24" />
+    </Panel>
+
+  </Grid>
+</UserControl>

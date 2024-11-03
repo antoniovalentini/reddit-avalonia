@@ -11,5 +11,6 @@
 
   <Application.Styles>
     <sty:FluentAvaloniaTheme />
+    <StyleInclude Source="avares://Reddilonia/Assets/Icons.axaml" />
   </Application.Styles>
 </Application>

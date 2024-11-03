@@ -3,12 +3,14 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:vm="clr-namespace:Reddilonia.ViewModels"
+             xmlns:vmd="clr-namespace:Reddilonia.ViewModels.Design"
              mc:Ignorable="d" d:DesignWidth="540" d:DesignHeight="960"
              x:Class="Reddilonia.Views.MainView"
              x:DataType="vm:MainViewModel">
   <Design.DataContext>
-    <vm:MainViewModel />
+    <vmd:MainViewModelDesign />
   </Design.DataContext>
 
-  <TextBlock Text="{Binding Greeting}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+  <TransitioningContentControl Content="{Binding CurrentPage}"/>
+
 </UserControl>
