@@ -7,6 +7,7 @@ public class FeedsViewModelDesign : FeedsViewModel
 {
     public FeedsViewModelDesign() : base(
         new FakeRedditApiClient(),
+        new FakeRedditAuthClient(),
         WeakReferenceMessenger.Default,
         new FakeAuthTokenStorage(),
         new FakeLogger<FeedsViewModel>(),

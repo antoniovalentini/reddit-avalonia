@@ -16,6 +16,7 @@ public partial class MainViewModel : ViewModelBase
 
     public MainViewModel(
         IRedditApiClient redditApiClient,
+        IRedditAuthClient redditAuthClient,
         IMessenger messenger,
         IAuthTokenStorage authTokenStorage,
         IAuthManager authManager,
@@ -34,11 +35,11 @@ public partial class MainViewModel : ViewModelBase
         });
         messenger.Register<MainViewModel, ReloadFeedsViewMessage>(this, (_, _) =>
         {
-            _feedsViewModel = new FeedsViewModel(redditApiClient, messenger, authTokenStorage, feedsLogger, subRedditLogger, authManager);
+            _feedsViewModel = new FeedsViewModel(redditApiClient, redditAuthClient, messenger, authTokenStorage, feedsLogger, subRedditLogger, authManager);
             CurrentPage = _feedsViewModel;
         });
 
-        _feedsViewModel = new FeedsViewModel(redditApiClient, messenger, authTokenStorage, feedsLogger, subRedditLogger, authManager);
+        _feedsViewModel = new FeedsViewModel(redditApiClient, redditAuthClient, messenger, authTokenStorage, feedsLogger, subRedditLogger, authManager);
         CurrentPage = _feedsViewModel;
 
         feedsLogger.LogInformation("Finished initializing main view model...");

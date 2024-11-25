@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Reddit.Client;
+using Reddit.Client.Dtos;
 
 namespace Reddilonia.BusinessLogic;
 
@@ -23,18 +24,16 @@ public class AuthManager : IDisposable, IAuthManager
     private readonly IRedditAuthClient _redditAuthClient;
     private readonly WebAuthParameters _webAuthParameters;
     private readonly HttpListener _listener;
-    private readonly IAuthTokenStorage _authTokenStorage;
     private readonly ILogger<AuthManager> _logger;
 
     private const string Scope = "creddits%20modcontributors%20modmail%20modconfig%20subscribe%20structuredstyles%20vote%20wikiedit%20mysubreddits%20submit%20modlog%20modposts%20modflair%20save%20modothers%20read%20privatemessages%20report%20identity%20livemanage%20account%20modtraffic%20wikiread%20edit%20modwiki%20modself%20history%20flair";
     public event EventHandler<AuthSuccessEventArgs>? AuthSuccess;
     private CancellationTokenSource? _cancellationTokenSource;
 
-    public AuthManager(IRedditAuthClient redditAuthClient, IOptions<RedditClientSettings> redditClientSettings, IAuthTokenStorage authTokenStorage, ILogger<AuthManager> logger)
+    public AuthManager(IRedditAuthClient redditAuthClient, IOptions<RedditClientSettings> redditClientSettings, ILogger<AuthManager> logger)
     {
         _redditAuthClient = redditAuthClient;
         _webAuthParameters = redditClientSettings.Value.WebAuthParameters;
-        _authTokenStorage = authTokenStorage;
         _logger = logger;
 
         _listener = new HttpListener();
@@ -95,8 +94,7 @@ public class AuthManager : IDisposable, IAuthManager
         try
         {
             var oAuthToken = await _redditAuthClient.ExchangeCode(code);
-            await _authTokenStorage.StoreToken(oAuthToken);
-            AuthSuccess?.Invoke(this, new AuthSuccessEventArgs(oAuthToken.AccessToken, oAuthToken.RefreshToken));
+            AuthSuccess?.Invoke(this, new AuthSuccessEventArgs(oAuthToken));
         }
         catch (Exception e)
         {
@@ -125,4 +123,4 @@ public class AuthManager : IDisposable, IAuthManager
     }
 }
 
-public record AuthSuccessEventArgs(string AccessToken, string RefreshToken);
+public record AuthSuccessEventArgs(OAuthToken AuthToken);

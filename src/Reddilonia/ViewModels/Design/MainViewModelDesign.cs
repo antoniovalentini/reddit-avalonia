@@ -7,6 +7,7 @@ public class MainViewModelDesign : MainViewModel
 {
     public MainViewModelDesign() : base(
         new FakeRedditApiClient(),
+        new FakeRedditAuthClient(),
         WeakReferenceMessenger.Default,
         new FakeAuthTokenStorage(),
         new FakeAuthManager(),

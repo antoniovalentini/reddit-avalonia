@@ -3,7 +3,6 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Messaging;
 using Reddilonia.BusinessLogic;
 using Reddilonia.Models;
-using Reddit.Client.Dtos;
 
 namespace Reddilonia.ViewModels;
 
@@ -27,8 +26,7 @@ public partial class AuthNavigationViewModel : ViewModelBase
 
     private async void AuthSuccess(object? sender, AuthSuccessEventArgs e)
     {
-        var token = new OAuthToken(e.AccessToken, "bearer", 86400, "*", e.RefreshToken);
-        await _authTokenStorage.StoreToken(token);
+        await _authTokenStorage.StoreToken(e.AuthToken);
         _authManager.Stop();
         _messenger.Send<ReloadFeedsViewMessage>();
     }

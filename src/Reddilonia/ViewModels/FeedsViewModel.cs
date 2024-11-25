@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
@@ -15,6 +16,7 @@ namespace Reddilonia.ViewModels;
 public partial class FeedsViewModel : ViewModelBase
 {
     private readonly IRedditApiClient _redditApiClient;
+    private readonly IRedditAuthClient _redditAuthClient;
     private readonly IMessenger _messenger;
     private readonly ILogger<FeedsViewModel> _logger;
     private readonly ILogger<SubRedditViewModel> _subredditLogger;
@@ -37,6 +39,7 @@ public partial class FeedsViewModel : ViewModelBase
 
     public FeedsViewModel(
         IRedditApiClient redditApiClient,
+        IRedditAuthClient redditAuthClient,
         IMessenger messenger,
         IAuthTokenStorage authTokenStorage,
         ILogger<FeedsViewModel> logger,
@@ -44,6 +47,7 @@ public partial class FeedsViewModel : ViewModelBase
         IAuthManager authManager)
     {
         _redditApiClient = redditApiClient;
+        _redditAuthClient = redditAuthClient;
         _messenger = messenger;
         _authTokenStorage = authTokenStorage;
         _logger = logger;
@@ -62,12 +66,28 @@ public partial class FeedsViewModel : ViewModelBase
     private async Task LoadStuff()
     {
         var authToken = _authTokenStorage.Load();
-        if (authToken is null || !authToken.IsValid)
+        if (authToken is null)
         {
-            _logger.LogWarning("Unable to find a valid access token");
+            _logger.LogWarning("No access token found");
             Loading = false;
             NeedsAuthentication = true;
             return;
+        }
+        if (!authToken.IsValid)
+        {
+            try
+            {
+                _logger.LogInformation("Refreshing auth token");
+                authToken = await _redditAuthClient.RefreshToken(authToken.RefreshToken);
+                await _authTokenStorage.StoreToken(authToken);
+            }
+            catch (Exception e)
+            {
+                _logger.LogWarning("Unable to retrieve an auth access token: {Error}", e.Message);
+                Loading = false;
+                NeedsAuthentication = true;
+                return;
+            }
         }
         _logger.LogInformation("VALID ACCESS TOKEN");
 
