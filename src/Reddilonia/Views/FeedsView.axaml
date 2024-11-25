@@ -7,31 +7,45 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="Reddilonia.Views.FeedsView"
              x:DataType="vm:FeedsViewModel">
-<Design.DataContext>
+  <Design.DataContext>
     <vmd:FeedsViewModelDesign />
   </Design.DataContext>
 
   <!-- Container for header, separator and SplitView -->
   <Grid RowDefinitions="Auto, Auto, *" Background="#2B2B2B">
 
-    <!-- Header with hamburger and auth buttons -->
-    <StackPanel Grid.Row="0" Orientation="Horizontal" Spacing="10">
-      <Button HorizontalAlignment="Left"
-              Height="32"
-              Margin="7 10 0 10"
-              Command="{Binding TriggerPaneCommand}">
-        <PathIcon Height="11" Data="{StaticResource LineHorizontal3Regular}" />
-      </Button>
-      <Button HorizontalAlignment="Left"
-              Height="32"
-              Margin="0 10 0 10"
-              Command="{Binding BackHomeCommand}">
-        <PathIcon Height="15" Data="{StaticResource HomeRegular}" />
-      </Button>
-      <TextBlock Text="{Binding UserName}"
-                 HorizontalAlignment="Center"
-                 VerticalAlignment="Center" />
-    </StackPanel>
+    <!-- Header -->
+    <Grid Grid.Row="0" ColumnDefinitions="Auto, *, Auto" Margin="3 5 7 3">
+
+      <!-- Hamburger and home buttons -->
+      <StackPanel Orientation="Horizontal" Spacing="10">
+        <Button HorizontalAlignment="Left"
+                Height="32"
+                Margin="7 10 0 10"
+                Command="{Binding TriggerPaneCommand}">
+          <PathIcon Height="11" Data="{StaticResource LineHorizontal3Regular}" />
+        </Button>
+        <Button HorizontalAlignment="Left"
+                Height="32"
+                Margin="0 10 0 10"
+                Command="{Binding BackHomeCommand}">
+          <PathIcon Height="15" Data="{StaticResource HomeRegular}" />
+        </Button>
+        <TextBlock Text="{Binding UserName}"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center" />
+      </StackPanel>
+
+      <!-- Rate limit info -->
+      <Grid Grid.Column="2" RowDefinitions="Auto, *" Margin="5 10">
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+          <TextBlock Text="{Binding RequestsDone}" HorizontalAlignment="Center" />
+          <TextBlock Text=" / " HorizontalAlignment="Center" />
+          <TextBlock Text="{Binding RequestsTotal}" HorizontalAlignment="Center" />
+        </StackPanel>
+        <ProgressBar Grid.Row="1" Maximum="{Binding RequestsTotal}" Value="{Binding RequestsDone}" />
+      </Grid>
+    </Grid>
 
     <Separator Grid.Row="1" Margin="10 0" />
 
