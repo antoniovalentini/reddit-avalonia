@@ -6,7 +6,6 @@ namespace Reddilonia.ViewModels.Design;
 public class FeedsViewModelDesign : FeedsViewModel
 {
     public FeedsViewModelDesign() : base(
-        new FakeRedditAuthClient(),
         new FakeRedditApiClient(),
         WeakReferenceMessenger.Default,
         new FakeAuthTokenStorage(),
