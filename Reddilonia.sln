@@ -13,6 +13,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{3BC9D6A1-354A-4EDE-B9C6-B3BE2C6ED6C1}"
 	ProjectSection(SolutionItems) = preProject
 		src\Directory.Build.props = src\Directory.Build.props
+		README.md = README.md
 	EndProjectSection
 EndProject
 Global

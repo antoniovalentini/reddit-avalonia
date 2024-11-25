@@ -3,6 +3,7 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
+using AvaloniaWebView;
 using CommunityToolkit.Mvvm.Messaging;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -18,6 +19,13 @@ public abstract class App : Application
 {
     public static App Instance => (Current as App)!;
     public ServiceProvider? ServiceProvider { get; private set; }
+
+    public override void RegisterServices()
+    {
+        base.RegisterServices();
+
+        AvaloniaWebViewBuilder.Initialize(default);
+    }
 
     public override void Initialize()
     {

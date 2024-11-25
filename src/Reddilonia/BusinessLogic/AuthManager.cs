@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Net;
-using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -15,7 +13,7 @@ public interface IAuthManager
 {
     event EventHandler<AuthSuccessEventArgs>? AuthSuccess;
     void Start();
-    void OpenBrowser();
+    string GetAuthUrl();
     void Stop();
     void Dispose();
 }
@@ -106,40 +104,12 @@ public class AuthManager : IDisposable, IAuthManager
         }
     }
 
-    public void OpenBrowser()
-    {
-        var authUrl = "https://www.reddit.com/api/v1/authorize?client_id=" + _webAuthParameters.AppId
-                      + "&response_type=code"
-                      + "&state=" + _webAuthParameters.AppId + ":" + _webAuthParameters.AppSecret
-                      + "&redirect_uri=http://" + _webAuthParameters.Host + ":" + _webAuthParameters.Port + "/" + _webAuthParameters.RelativeRedirectUri
-                      + "&duration=permanent"
-                      + "&scope=" + Scope;
-
-        if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-        {
-            try
-            {
-                Process.Start(new ProcessStartInfo { FileName = authUrl, UseShellExecute = true });
-            }
-            catch (System.ComponentModel.Win32Exception)
-            {
-                Process.Start(authUrl);
-            }
-        }
-        else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
-        {
-            // For OSX run a separate command to open the web browser as found in https://brockallen.com/2016/09/24/process-start-for-urls-on-net-core/
-            Process.Start("open", authUrl);
-        }
-        else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
-        {
-            // Similar to OSX, Linux can (and usually does) use xdg for this task.
-            Process.Start("xdg-open", authUrl);
-        } else if (OperatingSystem.IsAndroid())
-        {
-
-        }
-    }
+    public string GetAuthUrl() => "https://www.reddit.com/api/v1/authorize?client_id=" + _webAuthParameters.AppId
+                                + "&response_type=code"
+                                + "&state=" + _webAuthParameters.AppId + ":" + _webAuthParameters.AppSecret
+                                + "&redirect_uri=http://" + _webAuthParameters.Host + ":" + _webAuthParameters.Port + "/" + _webAuthParameters.RelativeRedirectUri
+                                + "&duration=permanent"
+                                + "&scope=" + Scope;
 
     public void Stop()
     {

@@ -20,6 +20,7 @@ public partial class FeedsViewModel : ViewModelBase
     private readonly ILogger<FeedsViewModel> _logger;
     private readonly ILogger<SubRedditViewModel> _subredditLogger;
     private readonly IAuthTokenStorage _authTokenStorage;
+    private readonly IAuthManager _authManager;
 
     [ObservableProperty] private int _requestsTotal;
     [ObservableProperty] private int _requestsDone;
@@ -41,7 +42,8 @@ public partial class FeedsViewModel : ViewModelBase
         IMessenger messenger,
         IAuthTokenStorage authTokenStorage,
         ILogger<FeedsViewModel> logger,
-        ILogger<SubRedditViewModel> subredditLogger)
+        ILogger<SubRedditViewModel> subredditLogger,
+        IAuthManager authManager)
     {
         _redditAuthClient = redditAuthClient;
         _redditApiClient = redditApiClient;
@@ -49,6 +51,7 @@ public partial class FeedsViewModel : ViewModelBase
         _authTokenStorage = authTokenStorage;
         _logger = logger;
         _subredditLogger = subredditLogger;
+        _authManager = authManager;
 
         _redditApiClient.RateLimitUpdate += (_, args) =>
         {
@@ -69,6 +72,7 @@ public partial class FeedsViewModel : ViewModelBase
             NeedsAuthentication = true;
             return;
         }
+        _logger.LogInformation("VALID ACCESS TOKEN");
 
         // get user profile
         var user = await _redditApiClient.Me(authToken);
@@ -113,13 +117,13 @@ public partial class FeedsViewModel : ViewModelBase
     [RelayCommand(CanExecute = nameof(CanShowAuth))]
     private void ShowAuth()
     {
-        SplitViewContent = new AuthNavigationViewModel();
+        SplitViewContent = new AuthNavigationViewModel(_authManager, _authTokenStorage, _messenger);
         NeedsAuthentication = false;
     }
 
     private bool CanShowAuth()
     {
         var authToken = _authTokenStorage.Load();
-        return authToken is null; // || !authToken.IsValid;
+        return authToken is null || !authToken.IsValid;
     }
 }

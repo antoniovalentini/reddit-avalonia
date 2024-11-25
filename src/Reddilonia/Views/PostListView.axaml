@@ -1,0 +1,43 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:Reddilonia.ViewModels"
+             xmlns:vmd="clr-namespace:Reddilonia.ViewModels.Design"
+             xmlns:reddilonia="clr-namespace:Reddilonia"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="Reddilonia.Views.PostListView"
+             x:DataType="vm:PostListViewModel">
+  <Design.DataContext>
+    <vmd:PostListViewModelDesign />
+  </Design.DataContext>
+
+  <UserControl.Resources>
+    <reddilonia:BitmapAssetValueConverter x:Key="BitmapConverter" />
+  </UserControl.Resources>
+
+  <ScrollViewer>
+    <ListBox ItemsSource="{Binding Posts}" Background="#2B2B2B" SelectedItem="{Binding SelectedPost}" Name="ItemParent">
+      <ListBox.ItemTemplate>
+        <DataTemplate>
+          <StackPanel Margin="0 5" Spacing="7">
+            <TextBlock Text="{Binding SubredditNamePrefixed}" />
+            <TextBlock Text="{Binding Title}" FontWeight="Bold" TextWrapping="Wrap" />
+            <TextBlock Text="{Binding Selftext}" TextWrapping="Wrap"
+                       TextTrimming="CharacterEllipsis" MaxLines="4" />
+            <Image Source="{Binding Thumbnail, Converter={StaticResource BitmapConverter}}"
+                   MaxWidth="300"
+                   HorizontalAlignment="Center" />
+            <StackPanel Orientation="Horizontal">
+              <TextBlock Text="{Binding Author, StringFormat='u/{0}'}" Name="AuthorText" />
+              <TextBlock Text="-" Margin="5 0" />
+              <TextBlock Text="{Binding TimeSpanFromCreationEpoch, StringFormat=' {0} ago'}" />
+            </StackPanel>
+            <Separator Margin="0 10 0 0"/>
+          </StackPanel>
+        </DataTemplate>
+      </ListBox.ItemTemplate>
+    </ListBox>
+  </ScrollViewer>
+</UserControl>
+

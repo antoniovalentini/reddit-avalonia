@@ -1,5 +1,6 @@
 ﻿using System;
 using Avalonia;
+using Avalonia.WebView.Desktop;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -19,7 +20,8 @@ sealed class Program
         => AppBuilder.Configure<DesktopApp>()
             .UsePlatformDetect()
             .WithInterFont()
-            .LogToTrace();
+            .LogToTrace()
+            .UseDesktopWebView();
 }
 
 public class DesktopApp : App

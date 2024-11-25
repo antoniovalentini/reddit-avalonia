@@ -10,6 +10,7 @@ public class MainViewModelDesign : MainViewModel
         new FakeRedditApiClient(),
         WeakReferenceMessenger.Default,
         new FakeAuthTokenStorage(),
+        new FakeAuthManager(),
         new FakeLogger<FeedsViewModel>(),
         new FakeLogger<SubRedditViewModel>())
     {

@@ -11,7 +11,8 @@ public class FeedsViewModelDesign : FeedsViewModel
         WeakReferenceMessenger.Default,
         new FakeAuthTokenStorage(),
         new FakeLogger<FeedsViewModel>(),
-        new FakeLogger<SubRedditViewModel>())
+        new FakeLogger<SubRedditViewModel>(),
+        new FakeAuthManager())
     {
         RequestsTotal = 100;
         RequestsDone = 25;

@@ -3,18 +3,19 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:vm="clr-namespace:Reddilonia.ViewModels"
+             xmlns:vmd="clr-namespace:Reddilonia.ViewModels.Design"
              mc:Ignorable="d" d:DesignWidth="540" d:DesignHeight="960"
              x:Class="Reddilonia.Views.AuthNavigationView"
              x:DataType="vm:AuthNavigationViewModel">
   <Design.DataContext>
-    <vm:AuthNavigationViewModel />
+    <vmd:AuthNavigationViewModelDesign />
   </Design.DataContext>
 
   <Grid RowDefinitions="Auto, *">
     <StackPanel Margin="14" Spacing="10">
       <TextBlock Text="Web Navigation View" HorizontalAlignment="Center" VerticalAlignment="Center" />
-      <TextBlock Text="STATUS: " VerticalAlignment="Center" />
+      <Separator/>
     </StackPanel>
-    <!-- <WebView x:Name="PART_WebView" Grid.Row="1" Url="{Binding WebViewUri}"/> -->
+    <WebView x:Name="PartWebView" Grid.Row="1" Url="{Binding WebViewUri}"/>
   </Grid>
 </UserControl>

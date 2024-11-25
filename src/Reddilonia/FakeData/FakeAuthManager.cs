@@ -11,8 +11,9 @@ public class FakeAuthManager : IAuthManager
     {
     }
 
-    public void OpenBrowser()
+    public string GetAuthUrl()
     {
+        return "https://www.reddit.com";
     }
 
     public void Stop()
