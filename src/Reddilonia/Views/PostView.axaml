@@ -1,0 +1,151 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:Reddilonia.ViewModels"
+             xmlns:vmd="clr-namespace:Reddilonia.ViewModels.Design"
+             mc:Ignorable="d" d:DesignWidth="540" d:DesignHeight="960"
+             x:Class="Reddilonia.Views.PostView"
+             x:DataType="vm:PostViewModel">
+  <Design.DataContext>
+    <vmd:PostViewModelDesign />
+  </Design.DataContext>
+
+  <ScrollViewer>
+    <StackPanel Spacing="10" Margin="10">
+
+      <Button Command="{Binding ClosePostCommand}">
+        <PathIcon Data="{StaticResource ArrowLeftRegular}"
+                  Width="16" Height="16" />
+      </Button>
+
+      <!-- Post Header -->
+      <Border Background="#2b2b2b" CornerRadius="8" Padding="12">
+        <StackPanel Spacing="8">
+          <!-- Subreddit and Author Info -->
+          <StackPanel Orientation="Horizontal" Spacing="8">
+            <TextBlock Text="{Binding Post.Subreddit, FallbackValue='SubReddit'}"
+                       Foreground="#4fbcff"
+                       FontWeight="Bold" />
+            <TextBlock Text="•" Foreground="#808080" />
+            <TextBlock
+              Text="{Binding Post.Author, StringFormat='Posted by u/{0}', FallbackValue='Posted by u/username'}"
+              Foreground="#808080" />
+            <TextBlock Text="{Binding Post.TimeSpanFromCreationEpoch, StringFormat=' {0} ago', FallbackValue='5h ago'}"
+                       Foreground="#808080" />
+          </StackPanel>
+
+          <!-- Post Title -->
+          <TextBlock Text="{Binding Post.Title, FallbackValue='TestTitle'}"
+                     TextWrapping="Wrap"
+                     FontSize="18"
+                     FontWeight="SemiBold" />
+
+          <!-- Post Content -->
+          <TextBlock Text="{Binding Post.Selftext, FallbackValue='TestBody'}"
+                     TextWrapping="Wrap" />
+
+          <!-- Post Stats -->
+          <StackPanel Orientation="Horizontal" Spacing="16">
+            <!-- Upvotes -->
+            <StackPanel Orientation="Horizontal" Spacing="4">
+              <PathIcon Data="{StaticResource ArrowUpRegular}"
+                        Width="16" Height="16" />
+              <PathIcon Data="{StaticResource ArrowDownRegular}"
+                        Width="16" Height="16" />
+              <TextBlock Text="{Binding Post.Score, FallbackValue='-999'}"
+                         VerticalAlignment="Center" />
+            </StackPanel>
+
+            <!-- Comments -->
+            <StackPanel Orientation="Horizontal" Spacing="4">
+              <PathIcon Data="{StaticResource CommentRegular}"
+                        Width="16" Height="16" />
+              <TextBlock Text="{Binding Post.NumComments, FallbackValue='-999'}"
+                         VerticalAlignment="Center" />
+              <TextBlock Text="Comments"
+                         VerticalAlignment="Center" />
+            </StackPanel>
+
+            <!-- Share -->
+            <Button Classes="plain">
+              <StackPanel Orientation="Horizontal" Spacing="4">
+                <PathIcon Data="{StaticResource ShareRegular}"
+                          Width="16" Height="16" />
+                <TextBlock Text="Share"
+                           VerticalAlignment="Center" />
+              </StackPanel>
+            </Button>
+          </StackPanel>
+        </StackPanel>
+      </Border>
+
+      <StackPanel>
+        <TextBlock Text="No comments yet..." HorizontalAlignment="Center" IsVisible="{Binding NoComments}" />
+        <TreeView ItemsSource="{Binding Comments}" Width="{Binding $parent.Width}">
+          <TreeView.Styles>
+            <Style Selector="ScrollContentPresenter">
+              <Setter Property="CanHorizontallyScroll" Value="False" />
+            </Style>
+          </TreeView.Styles>
+          <TreeView.ItemTemplate>
+            <TreeDataTemplate ItemsSource="{Binding Replies}">
+              <Border Background="#2b2b2b"
+                      CornerRadius="8"
+                      Padding="12"
+                      Margin="0,0,0,8">
+                <StackPanel Spacing="8">
+                  <!-- Comment Header -->
+                  <StackPanel Orientation="Horizontal" Spacing="8">
+                    <TextBlock Text="{Binding Author, StringFormat='u/{0}'}"
+                               Foreground="#808080" />
+                    <TextBlock Text="OP" Foreground="CornflowerBlue" IsVisible="{Binding IsOp}" />
+                    <TextBlock Text="•" Foreground="#808080" />
+                    <TextBlock
+                      Text="{Binding TimeSpanFromCreationEpoch, StringFormat=' {0} ago', FallbackValue='5h ago'}"
+                      Foreground="#808080" />
+                  </StackPanel>
+
+                  <!-- Comment Content -->
+                  <TextBlock Text="{Binding Body}"
+                             TextWrapping="Wrap" />
+
+                  <!-- Comment Actions -->
+                  <StackPanel Orientation="Horizontal" Spacing="16">
+                    <StackPanel Orientation="Horizontal" Spacing="4">
+                      <PathIcon Data="{StaticResource ArrowUpRegular}"
+                                Width="14" Height="14" />
+                      <PathIcon Data="{StaticResource ArrowDownRegular}"
+                                Width="14" Height="14" />
+                      <TextBlock Text="{Binding Score}"
+                                 VerticalAlignment="Center"
+                                 FontSize="12" />
+                    </StackPanel>
+
+                    <Button Classes="plain">
+                      <StackPanel Orientation="Horizontal" Spacing="4">
+                        <PathIcon Data="{StaticResource ArrowReplyRegular}"
+                                  Width="14" Height="14" />
+                        <TextBlock Text="Reply"
+                                   VerticalAlignment="Center"
+                                   FontSize="12" />
+                      </StackPanel>
+                    </Button>
+                  </StackPanel>
+                </StackPanel>
+              </Border>
+            </TreeDataTemplate>
+          </TreeView.ItemTemplate>
+        </TreeView>
+      </StackPanel>
+    </StackPanel>
+  </ScrollViewer>
+
+  <UserControl.Styles>
+    <Style Selector="Button.plain">
+      <Setter Property="Background" Value="Transparent" />
+      <Setter Property="BorderThickness" Value="0" />
+      <Setter Property="Padding" Value="4" />
+    </Style>
+  </UserControl.Styles>
+</UserControl>

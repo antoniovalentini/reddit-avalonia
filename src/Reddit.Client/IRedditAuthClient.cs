@@ -9,11 +9,6 @@ namespace Reddit.Client;
 public interface IRedditAuthClient
 {
     /// <summary>
-    /// Gets the current OAuth token, if one is available.
-    /// </summary>
-    OAuthToken? CurrentOAuthToken { get; }
-
-    /// <summary>
     /// Exchanges an authorization code for an OAuth token.
     /// </summary>
     /// <param name="code">The authorization code obtained through Reddit's OAuth flow.</param>

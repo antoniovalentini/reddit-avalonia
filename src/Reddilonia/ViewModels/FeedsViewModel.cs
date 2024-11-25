@@ -14,7 +14,6 @@ namespace Reddilonia.ViewModels;
 
 public partial class FeedsViewModel : ViewModelBase
 {
-    private readonly IRedditAuthClient _redditAuthClient;
     private readonly IRedditApiClient _redditApiClient;
     private readonly IMessenger _messenger;
     private readonly ILogger<FeedsViewModel> _logger;
@@ -37,7 +36,6 @@ public partial class FeedsViewModel : ViewModelBase
     private List<Post> _homePosts = [];
 
     public FeedsViewModel(
-        IRedditAuthClient redditAuthClient,
         IRedditApiClient redditApiClient,
         IMessenger messenger,
         IAuthTokenStorage authTokenStorage,
@@ -45,7 +43,6 @@ public partial class FeedsViewModel : ViewModelBase
         ILogger<SubRedditViewModel> subredditLogger,
         IAuthManager authManager)
     {
-        _redditAuthClient = redditAuthClient;
         _redditApiClient = redditApiClient;
         _messenger = messenger;
         _authTokenStorage = authTokenStorage;
@@ -110,7 +107,7 @@ public partial class FeedsViewModel : ViewModelBase
     {
         if (value is null) return;
 
-        SplitViewContent = new SubRedditViewModel(_subreddits.First(s => s.DisplayNamePrefixed == value), _redditApiClient, _redditAuthClient, _messenger, _subredditLogger);
+        SplitViewContent = new SubRedditViewModel(_subreddits.First(s => s.DisplayNamePrefixed == value), _redditApiClient, _authTokenStorage, _messenger, _subredditLogger);
         IsPaneOpen = false;
     }
 

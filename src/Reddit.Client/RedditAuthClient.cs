@@ -25,8 +25,6 @@ public class RedditAuthClient : IRedditAuthClient
         }
     }
 
-    public OAuthToken? CurrentOAuthToken { get; private set; }
-
     public async Task<OAuthToken> ExchangeCode(string code)
     {
         var requestContent = new FormUrlEncodedContent(new List<KeyValuePair<string, string>>
@@ -48,7 +46,6 @@ public class RedditAuthClient : IRedditAuthClient
         });
 
         var oAuthToken = await Post<OAuthToken>("api/v1/access_token", requestContent);
-        CurrentOAuthToken = oAuthToken;
 
         return oAuthToken;
     }
