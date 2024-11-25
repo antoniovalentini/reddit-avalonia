@@ -21,19 +21,59 @@
       <ListBox.ItemTemplate>
         <DataTemplate>
           <StackPanel Margin="0 5" Spacing="7">
-            <TextBlock Text="{Binding SubredditNamePrefixed}" />
-            <TextBlock Text="{Binding Title}" FontWeight="Bold" TextWrapping="Wrap" />
-            <TextBlock Text="{Binding Selftext}" TextWrapping="Wrap"
-                       TextTrimming="CharacterEllipsis" MaxLines="4" />
+
+            <!-- TODO: make it a custom control and use it in post view too -->
+            <!-- Subreddit and Author Info -->
+            <StackPanel Orientation="Horizontal" Spacing="8">
+              <TextBlock Text="{Binding SubredditNamePrefixed, FallbackValue='SubReddit'}"
+                         Foreground="#4fbcff"
+                         FontWeight="Bold" />
+              <TextBlock Text="•" Foreground="#808080" />
+              <TextBlock
+                Text="{Binding Author, StringFormat='Posted by u/{0}', FallbackValue='Posted by u/username'}"
+                Foreground="#808080" />
+              <TextBlock Text="{Binding TimeSpanFromCreationEpoch, StringFormat=' {0} ago', FallbackValue='5h ago'}"
+                         Foreground="#808080" />
+            </StackPanel>
+
+            <!-- Post Title -->
+            <TextBlock Text="{Binding Title, FallbackValue='TestTitle'}"
+                       TextWrapping="Wrap"
+                       FontSize="18"
+                       FontWeight="SemiBold" />
+
+            <!-- Post Content -->
+            <TextBlock Text="{Binding Selftext, FallbackValue='TestBody'}"
+                       TextWrapping="Wrap" TextTrimming="CharacterEllipsis" MaxLines="4" />
+
             <Image Source="{Binding Thumbnail, Converter={StaticResource BitmapConverter}}"
                    MaxWidth="300"
                    HorizontalAlignment="Center" />
-            <StackPanel Orientation="Horizontal">
-              <TextBlock Text="{Binding Author, StringFormat='u/{0}'}" Name="AuthorText" />
-              <TextBlock Text="-" Margin="5 0" />
-              <TextBlock Text="{Binding TimeSpanFromCreationEpoch, StringFormat=' {0} ago'}" />
+
+            <!-- Post Stats -->
+            <StackPanel Orientation="Horizontal" Spacing="16">
+              <!-- Upvotes -->
+              <StackPanel Orientation="Horizontal" Spacing="4">
+                <PathIcon Data="{StaticResource ArrowUpRegular}"
+                          Width="16" Height="16" />
+                <PathIcon Data="{StaticResource ArrowDownRegular}"
+                          Width="16" Height="16" />
+                <TextBlock Text="{Binding Score, FallbackValue='-999'}"
+                           VerticalAlignment="Center" />
+              </StackPanel>
+
+              <!-- Comments -->
+              <StackPanel Orientation="Horizontal" Spacing="4">
+                <PathIcon Data="{StaticResource CommentRegular}"
+                          Width="16" Height="16" />
+                <TextBlock Text="{Binding NumComments, FallbackValue='-999'}"
+                           VerticalAlignment="Center" />
+                <TextBlock Text="Comments"
+                           VerticalAlignment="Center" />
+              </StackPanel>
             </StackPanel>
-            <Separator Margin="0 10 0 0"/>
+
+            <Separator Margin="0 5 0 0"/>
           </StackPanel>
         </DataTemplate>
       </ListBox.ItemTemplate>

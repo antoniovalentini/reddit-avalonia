@@ -16,6 +16,7 @@ public class FakeTools
         DefaultPost with
         {
             Title = title, Author = author, SubredditNamePrefixed = subreddit, CreatedUtc = ToEpoch(datetime), Thumbnail = imageUrl,
+            NumComments = 42, Score = 999,
             Selftext = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam pellentesque pretium porta. Donec in molestie dolor, ac ullamcorper sapien. " +
                        "Integer euismod tincidunt diam. Nunc suscipit vel metus vitae mattis. Aliquam erat volutpat. Nam nisl enim, placerat vitae nisi quis, tincidunt auctor turpis. " +
                        "Quisque a sapien porttitor turpis condimentum facilisis et efficitur tellus.",
