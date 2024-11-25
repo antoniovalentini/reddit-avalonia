@@ -12,9 +12,9 @@ namespace Reddilonia.ViewModels;
 
 public partial class PostViewModel : ViewModelBase
 {
-    private readonly IRedditApiClient _client;
+    protected readonly IRedditApiClient Client;
+    protected readonly IAuthTokenStorage AuthTokenStorage;
     private readonly IMessenger _messenger;
-    private readonly IAuthTokenStorage _authTokenStorage;
 
     [ObservableProperty] private Post? _post;
     [ObservableProperty] private bool? _noComments = false;
@@ -23,8 +23,8 @@ public partial class PostViewModel : ViewModelBase
 
     public PostViewModel(Post post, IAuthTokenStorage authTokenStorage, IRedditApiClient client, IMessenger messenger)
     {
-        _authTokenStorage = authTokenStorage;
-        _client = client;
+        AuthTokenStorage = authTokenStorage;
+        Client = client;
         _messenger = messenger;
         Post = post;
 
@@ -40,10 +40,10 @@ public partial class PostViewModel : ViewModelBase
     private async Task LoadComments()
     {
         if (Post is null) return;
-        var authToken = _authTokenStorage.Load();
+        var authToken = AuthTokenStorage.Load();
         if (authToken is null || !authToken.IsValid) return;
 
-        var response = await _client.CommentsSimple(Post.Subreddit, Post.Id, authToken);
+        var response = await Client.CommentsSimple(Post.Subreddit, Post.Id, authToken);
 
         if (response.Length == 0)
         {
