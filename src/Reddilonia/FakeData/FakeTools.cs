@@ -42,7 +42,7 @@ public class FakeTools
                 Url = "/r/italy",
                 Subscribers = 1000,
                 ActiveUserCount = 150,
-                Description =
+                PublicDescription =
                 "A subreddit for Italy aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaa aaaaaaaaaaaaa aaaaaaaaaaaaaa aaaaaaaaaaa aaaaaaaaaaa aaaaaaaaaaa aaaaaaaaaaa aaaaaaaaaaaaa\n" +
                 "some more stuff\n\n" +
                 "even mooooore stuff\n\n" +

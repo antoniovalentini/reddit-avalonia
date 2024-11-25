@@ -1,0 +1,36 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:Reddilonia.ViewModels"
+             xmlns:vmd="clr-namespace:Reddilonia.ViewModels.Design"
+             mc:Ignorable="d" d:DesignWidth="540" d:DesignHeight="960"
+             x:Class="Reddilonia.Views.SubRedditView"
+             x:DataType="vm:SubRedditViewModel">
+  <Design.DataContext>
+    <vmd:SubRedditViewModelDesign />
+  </Design.DataContext>
+
+  <ScrollViewer>
+    <Grid Margin="5" RowDefinitions="Auto, *">
+
+      <!-- Subreddit info -->
+      <Border CornerRadius="10" Background="#2B2B2B" Padding="10 10" Grid.Row="0" MaxHeight="200" Margin="0 0 0 5">
+        <ScrollViewer>
+          <StackPanel Spacing="10">
+            <TextBlock Text="{Binding Subreddit.Url}" HorizontalAlignment="Center" FontWeight="Bold" FontSize="20" />
+            <TextBlock Text="{Binding Subreddit.Subscribers, StringFormat='Subscribers: {0}'}" />
+            <TextBlock Text="{Binding Subreddit.PublicDescription}" HorizontalAlignment="Center" TextWrapping="Wrap" />
+          </StackPanel>
+        </ScrollViewer>
+      </Border>
+
+      <!-- Posts -->
+      <TransitioningContentControl Content="{Binding PostsControl}" Grid.Row="1"
+                                   IsVisible="{Binding !Loading}" />
+      <TextBlock Grid.Row="1" Text="Loading..." IsVisible="{Binding Loading}"
+                 HorizontalAlignment="Center" FontWeight="Bold" FontSize="18" Margin="10" />
+
+    </Grid>
+  </ScrollViewer>
+</UserControl>
