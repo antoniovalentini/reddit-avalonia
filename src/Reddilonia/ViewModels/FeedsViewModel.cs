@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
@@ -16,17 +15,14 @@ namespace Reddilonia.ViewModels;
 public partial class FeedsViewModel : ViewModelBase
 {
     private readonly IRedditApiClient _redditApiClient;
-    private readonly IRedditAuthClient _redditAuthClient;
     private readonly IMessenger _messenger;
     private readonly ILogger<FeedsViewModel> _logger;
     private readonly ILogger<SubRedditViewModel> _subredditLogger;
     private readonly IAuthTokenStorage _authTokenStorage;
-    private readonly IAuthManager _authManager;
 
     [ObservableProperty] private int _requestsTotal;
     [ObservableProperty] private int _requestsDone;
     [ObservableProperty] private bool _isPaneOpen;
-    [ObservableProperty] private bool _needsAuthentication;
     [ObservableProperty] private bool _loading = true;
     [ObservableProperty] private bool _postLoaded;
     [ObservableProperty] private string _userName = "Unknown";
@@ -39,20 +35,16 @@ public partial class FeedsViewModel : ViewModelBase
 
     public FeedsViewModel(
         IRedditApiClient redditApiClient,
-        IRedditAuthClient redditAuthClient,
         IMessenger messenger,
         IAuthTokenStorage authTokenStorage,
         ILogger<FeedsViewModel> logger,
-        ILogger<SubRedditViewModel> subredditLogger,
-        IAuthManager authManager)
+        ILogger<SubRedditViewModel> subredditLogger)
     {
         _redditApiClient = redditApiClient;
-        _redditAuthClient = redditAuthClient;
         _messenger = messenger;
         _authTokenStorage = authTokenStorage;
         _logger = logger;
         _subredditLogger = subredditLogger;
-        _authManager = authManager;
 
         _redditApiClient.RateLimitUpdate += (_, args) =>
         {
@@ -70,26 +62,8 @@ public partial class FeedsViewModel : ViewModelBase
         {
             _logger.LogWarning("No access token found");
             Loading = false;
-            NeedsAuthentication = true;
             return;
         }
-        if (!authToken.IsValid)
-        {
-            try
-            {
-                _logger.LogInformation("Refreshing auth token");
-                authToken = await _redditAuthClient.RefreshToken(authToken.RefreshToken);
-                await _authTokenStorage.StoreToken(authToken);
-            }
-            catch (Exception e)
-            {
-                _logger.LogWarning("Unable to retrieve an auth access token: {Error}", e.Message);
-                Loading = false;
-                NeedsAuthentication = true;
-                return;
-            }
-        }
-        _logger.LogInformation("VALID ACCESS TOKEN");
 
         // get user profile
         var user = await _redditApiClient.Me(authToken);
@@ -129,18 +103,5 @@ public partial class FeedsViewModel : ViewModelBase
 
         SplitViewContent = new SubRedditViewModel(_subreddits.First(s => s.DisplayNamePrefixed == value), _redditApiClient, _authTokenStorage, _messenger, _subredditLogger);
         IsPaneOpen = false;
-    }
-
-    [RelayCommand(CanExecute = nameof(CanShowAuth))]
-    private void ShowAuth()
-    {
-        SplitViewContent = new AuthNavigationViewModel(_authManager, _authTokenStorage, _messenger);
-        NeedsAuthentication = false;
-    }
-
-    private bool CanShowAuth()
-    {
-        var authToken = _authTokenStorage.Load();
-        return authToken is null || !authToken.IsValid;
     }
 }

@@ -7,12 +7,10 @@ public class FeedsViewModelDesign : FeedsViewModel
 {
     public FeedsViewModelDesign() : base(
         new FakeRedditApiClient(),
-        new FakeRedditAuthClient(),
         WeakReferenceMessenger.Default,
         new FakeAuthTokenStorage(),
         new FakeLogger<FeedsViewModel>(),
-        new FakeLogger<SubRedditViewModel>(),
-        new FakeAuthManager())
+        new FakeLogger<SubRedditViewModel>())
     {
         RequestsTotal = 100;
         RequestsDone = 25;

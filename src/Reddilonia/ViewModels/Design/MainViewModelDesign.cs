@@ -11,6 +11,7 @@ public class MainViewModelDesign : MainViewModel
         WeakReferenceMessenger.Default,
         new FakeAuthTokenStorage(),
         new FakeAuthManager(),
+        new FakeLogger<MainViewModel>(),
         new FakeLogger<FeedsViewModel>(),
         new FakeLogger<SubRedditViewModel>())
     {

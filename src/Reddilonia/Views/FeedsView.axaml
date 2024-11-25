@@ -31,7 +31,6 @@
       <TextBlock Text="{Binding UserName}"
                  HorizontalAlignment="Center"
                  VerticalAlignment="Center" />
-      <Button Content="AUTH" Command="{Binding ShowAuthCommand}" />
     </StackPanel>
 
     <Separator Grid.Row="1" Margin="10 0" />
@@ -54,11 +53,6 @@
     <!-- Loading screen -->
     <Panel Grid.Row="2" Background="#2B2B2B" IsVisible="{Binding Loading}">
       <TextBlock Text="Loading..." HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24" />
-    </Panel>
-
-    <!-- Auth warning -->
-    <Panel Grid.Row="2" Background="#2B2B2B" IsVisible="{Binding NeedsAuthentication}">
-      <TextBlock Text="Authentication required!" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24" />
     </Panel>
 
   </Grid>

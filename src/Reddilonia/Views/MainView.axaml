@@ -5,12 +5,26 @@
              xmlns:vm="clr-namespace:Reddilonia.ViewModels"
              xmlns:vmd="clr-namespace:Reddilonia.ViewModels.Design"
              mc:Ignorable="d" d:DesignWidth="540" d:DesignHeight="960"
+             Background="#2B2B2B"
              x:Class="Reddilonia.Views.MainView"
              x:DataType="vm:MainViewModel">
   <Design.DataContext>
     <vmd:MainViewModelDesign />
   </Design.DataContext>
 
-  <TransitioningContentControl Content="{Binding CurrentPage}"/>
+  <Grid RowDefinitions="*">
+    <TransitioningContentControl Content="{Binding CurrentPage}"/>
+
+    <!-- Loading screen -->
+    <Panel Grid.Row="0" IsVisible="{Binding Loading}">
+      <TextBlock Text="Loading..." HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24" />
+    </Panel>
+
+    <!-- Auth warning -->
+    <StackPanel Grid.Row="0" VerticalAlignment="Center" Spacing="20" IsVisible="{Binding NeedsAuthentication}">
+      <TextBlock Text="Authentication required" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24" />
+      <Button Content="Authenticate" HorizontalAlignment="Center" Command="{Binding ShowAuthCommand}"/>
+    </StackPanel>
+  </Grid>
 
 </UserControl>
