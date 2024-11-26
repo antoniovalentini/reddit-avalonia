@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:vm="clr-namespace:Reddilonia.ViewModels"
              xmlns:vmd="clr-namespace:Reddilonia.ViewModels.Design"
-             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             mc:Ignorable="d" d:DesignWidth="540" d:DesignHeight="960"
              x:Class="Reddilonia.Views.FeedsView"
              x:DataType="vm:FeedsViewModel">
   <Design.DataContext>
@@ -39,11 +39,12 @@
       <!-- Rate limit info -->
       <Grid Grid.Column="2" RowDefinitions="Auto, *" Margin="5 10">
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-          <TextBlock Text="{Binding RequestsDone}" HorizontalAlignment="Center" />
-          <TextBlock Text=" / " HorizontalAlignment="Center" />
-          <TextBlock Text="{Binding RequestsTotal}" HorizontalAlignment="Center" />
+          <TextBlock Text="{Binding RequestsDone}" HorizontalAlignment="Center" FontSize="12" />
+          <TextBlock Text=" / " HorizontalAlignment="Center" FontSize="12" />
+          <TextBlock Text="{Binding RequestsTotal}" HorizontalAlignment="Center" FontSize="12" />
         </StackPanel>
-        <ProgressBar Grid.Row="1" Maximum="{Binding RequestsTotal}" Value="{Binding RequestsDone}" />
+        <ProgressBar Grid.Row="1" Maximum="{Binding RequestsTotal}"
+                     Value="{Binding RequestsDone}" MinWidth="100"/>
       </Grid>
     </Grid>
 

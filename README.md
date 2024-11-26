@@ -1,6 +1,6 @@
 # Reddilonia (reddit + avalonia)
 
-A prototype of a reddit client UI built with [AvaloniaUI](https://avaloniaui.net/). Viable for "lurking around", but it can't be used to post anything yet. Be aware that it might be discontinued at any moment. Use it at your own risk.
+A prototype of a reddit client UI built with [AvaloniaUI](https://avaloniaui.net/). Viable for "lurking around", but it can't be used to post anything yet. It's made to run on desktop and mobile (Android only so far). It's definitely not production-ready. Use it at your own risk.
 
 ## What you get
 - use your `AppId` and `AppSecret`
