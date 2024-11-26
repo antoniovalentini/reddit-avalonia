@@ -34,7 +34,7 @@ public partial class SubRedditViewModel : ViewModelBase
     private async Task LoadPosts()
     {
         var authToken = _authTokenStorage.Load();
-        if (authToken is null || !authToken.IsValid)
+        if (authToken is null || !_authTokenStorage.IsValid(authToken))
         {
             _logger.LogWarning("Unable to find a valid access token");
             Loading = false;

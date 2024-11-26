@@ -15,4 +15,8 @@ public class FakeAuthTokenStorage : IAuthTokenStorage
     {
         return Task.CompletedTask;
     }
+
+    public bool IsValid(OAuthToken oAuthToken) =>
+        !string.IsNullOrWhiteSpace(oAuthToken.AccessToken) &&
+        !string.IsNullOrWhiteSpace(oAuthToken.RefreshToken);
 }

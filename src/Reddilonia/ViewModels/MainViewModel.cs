@@ -73,7 +73,7 @@ public partial class MainViewModel : ViewModelBase
             NeedsAuthentication = true;
             return;
         }
-        if (!authToken.IsValid)
+        if (!_authTokenStorage.IsValid(authToken))
         {
             try
             {

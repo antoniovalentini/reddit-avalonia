@@ -80,7 +80,10 @@
         </StackPanel>
       </Border>
 
+      <!-- Comments -->
       <StackPanel>
+        <TextBlock Text="Loading..." HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24"
+                   IsVisible="{Binding Loading}" />
         <TextBlock Text="No comments yet..." HorizontalAlignment="Center" IsVisible="{Binding NoComments}" />
         <TreeView ItemsSource="{Binding Comments}" Width="{Binding $parent.Width}">
           <TreeView.Styles>

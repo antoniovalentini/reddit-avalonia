@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IdentityModel.Tokens.Jwt;
 using System.IO;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -11,6 +12,7 @@ public interface IAuthTokenStorage
 {
     OAuthToken? Load();
     Task StoreToken(OAuthToken token);
+    bool IsValid(OAuthToken oAuthToken);
 }
 
 public class AuthTokenStorage : IAuthTokenStorage
@@ -63,4 +65,10 @@ public class AuthTokenStorage : IAuthTokenStorage
             throw;
         }
     }
+
+    public bool IsValid(OAuthToken oAuthToken) =>
+        !string.IsNullOrWhiteSpace(oAuthToken.AccessToken) &&
+        !string.IsNullOrWhiteSpace(oAuthToken.RefreshToken) &&
+        new JwtSecurityTokenHandler().ReadToken(oAuthToken.AccessToken) is JwtSecurityToken token &&
+        token.ValidTo.ToUniversalTime() > DateTime.UtcNow;
 }
