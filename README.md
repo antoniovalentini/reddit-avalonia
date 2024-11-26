@@ -16,7 +16,6 @@ Well... a lot of things so far 😅, but regarding basic features we still miss:
 - video previews
 - posts and comments pagination
 - HTML rendering for subreddit/post body
-- API rate limit info
 
 ## Known bugs
 - images cache resets when restarting
