@@ -5,7 +5,7 @@
              xmlns:vm="clr-namespace:Reddilonia.ViewModels"
              xmlns:vmd="clr-namespace:Reddilonia.ViewModels.Design"
              xmlns:reddilonia="clr-namespace:Reddilonia"
-             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             mc:Ignorable="d" d:DesignWidth="540" d:DesignHeight="960"
              x:Class="Reddilonia.Views.PostListView"
              x:DataType="vm:PostListViewModel">
   <Design.DataContext>
