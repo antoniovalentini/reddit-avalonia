@@ -5,7 +5,6 @@
              xmlns:vm="clr-namespace:Reddilonia.ViewModels"
              xmlns:vmd="clr-namespace:Reddilonia.ViewModels.Design"
              mc:Ignorable="d" d:DesignWidth="540" d:DesignHeight="960"
-             Background="#2B2B2B"
              x:Class="Reddilonia.Views.MainView"
              x:DataType="vm:MainViewModel">
   <Design.DataContext>
